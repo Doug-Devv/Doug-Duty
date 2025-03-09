@@ -27,24 +27,16 @@ AddEventHandler('duty:off', function()
     RemoveAllPedWeapons(PlayerPedId(), true)
 end)
 
--- Duty UI
-Citizen.CreateThread(function()
-    while true do
-        Wait(0)
-        if IsControlJustReleased(0, 38) then -- E key
-            local input = lib.inputDialog('Go On Duty', {
-                {type = 'select', label = 'Department', options = {'LSPD', 'EMS', 'SHERIFF'}},
-                {type = 'input', label = 'Name', placeholder = 'John Doe'},
-                {type = 'input', label = 'Callsign', placeholder = '123'}
-            })
+-- Duty UI through /duty command
+RegisterCommand('duty', function()
+    local input = lib.inputDialog('Go On Duty', {
+        {type = 'select', label = 'Department', options = {'LSPD', 'EMS', 'SHERIFF'}},
+        {type = 'input', label = 'Name', placeholder = 'John Doe'},
+        {type = 'input', label = 'Callsign', placeholder = '123'}
+    })
 
-            if input then
-                TriggerServerEvent('duty:toggle', {
-                    department = input[1],
-                    name = input[2],
-                    callsign = input[3]
-                })
-            end
-        end
-    end
-end)
+    if input then
+        TriggerServerEvent('duty:toggle', {
+            department = input[1],
+            name = input[2],
+    
