@@ -39,4 +39,10 @@ RegisterCommand('duty', function()
         TriggerServerEvent('duty:toggle', {
             department = input[1],
             name = input[2],
-    
+            callsign = input[3]
+        })
+    else
+        TriggerEvent('ox_lib:notify', {type = 'error', description = 'Duty initiation canceled or invalid input.'})
+    end
+end, false)
+ 
